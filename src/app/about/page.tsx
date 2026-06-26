@@ -1,5 +1,6 @@
 import { companyInfo, founderStory, visionMission, meaningBehindJJValor } from "@/data/company";
 import HeroBackground from "@/components/HeroBackground";
+import DynamicLeadershipTeam from "@/components/DynamicLeadershipTeam";
 import { Calendar, Target, Heart, Sparkles, Award, Users } from "lucide-react";
 
 export default function AboutPage() {
@@ -158,6 +159,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <DynamicLeadershipTeam />
 
       {/* Meaning Behind J.J Valor */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">

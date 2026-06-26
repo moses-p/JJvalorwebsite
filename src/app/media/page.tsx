@@ -1,6 +1,5 @@
 import HeroBackground from "@/components/HeroBackground";
-import ImageGallery from "@/components/ImageGallery";
-import { getGalleryImages } from "@/data/images";
+import DynamicImageGallery from "@/components/DynamicImageGallery";
 
 export default function MediaPage() {
   return (
@@ -15,7 +14,7 @@ export default function MediaPage() {
 
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ImageGallery images={getGalleryImages()} columns={3} />
+          <DynamicImageGallery limit={50} columns={3} />
         </div>
       </section>
     </div>

@@ -183,3 +183,73 @@ class Order(OrderBase):
     
     class Config:
         from_attributes = True
+
+class SiteUpdateBase(BaseModel):
+    title: str
+    message: str
+    category: str = "news"
+    link_url: Optional[str] = None
+    link_label: Optional[str] = None
+    image_url: Optional[str] = None
+    show_in_marquee: bool = True
+    is_published: bool = True
+    priority: int = 0
+
+class SiteUpdate(SiteUpdateBase):
+    id: int
+    published_at: Optional[datetime] = None
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+class GalleryImageBase(BaseModel):
+    title: str
+    alt_text: Optional[str] = None
+    image_url: str
+    category: str = "Gallery"
+    is_published: bool = True
+    priority: int = 0
+
+class GalleryImage(GalleryImageBase):
+    id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+class PartnerBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    logo_url: Optional[str] = None
+    website_url: Optional[str] = None
+    partner_type: str = "Corporate"
+    is_published: bool = True
+    priority: int = 0
+
+class Partner(PartnerBase):
+    id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+class LeadershipMemberBase(BaseModel):
+    name: str
+    role: str
+    bio: Optional[str] = None
+    photo_url: Optional[str] = None
+    email: Optional[str] = None
+    sort_order: int = 0
+    is_published: bool = True
+
+class LeadershipMember(LeadershipMemberBase):
+    id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True

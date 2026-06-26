@@ -1,58 +1,8 @@
-import { Building2, Calendar, Target, Users, CheckCircle, ArrowRight } from "lucide-react";
+import { Calendar, Target, Users, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import DynamicProjectsGrid from "@/components/DynamicProjectsGrid";
 
 export default function ProjectsPage() {
-  const projects = [
-    {
-      title: "Construction & Real Estate",
-      icon: Building2,
-      description: "Residential and commercial building projects",
-      status: "Ongoing",
-      progress: 75,
-      color: "from-blue-500 to-blue-700",
-    },
-    {
-      title: "Events Management",
-      icon: Calendar,
-      description: "Corporate events and weddings",
-      status: "Completed",
-      progress: 100,
-      color: "from-purple-500 to-purple-700",
-    },
-    {
-      title: "Agriculture Initiative",
-      icon: Target,
-      description: "Sustainable farming and food production",
-      status: "Ongoing",
-      progress: 60,
-      color: "from-green-500 to-green-700",
-    },
-    {
-      title: "Youth Training Program",
-      icon: Users,
-      description: "Skills development for young people",
-      status: "Ongoing",
-      progress: 85,
-      color: "from-orange-500 to-orange-700",
-    },
-    {
-      title: "Orphanage Project",
-      icon: Building2,
-      description: "Children's home construction",
-      status: "Planning",
-      progress: 30,
-      color: "from-pink-500 to-pink-700",
-    },
-    {
-      title: "Graphics & Branding",
-      icon: CheckCircle,
-      description: "Corporate identity projects",
-      status: "Completed",
-      progress: 100,
-      color: "from-cyan-500 to-cyan-700",
-    },
-  ];
-
   const impactStories = [
     {
       title: "25+ Projects Completed",
@@ -112,38 +62,7 @@ export default function ProjectsPage() {
               Explore our diverse portfolio of projects transforming communities
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group"
-              >
-                <div className={`h-2 bg-gradient-to-r ${project.color}`}></div>
-                <div className="p-8">
-                  <div className={`w-16 h-16 mb-6 bg-gradient-to-br ${project.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <project.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      project.status === 'Completed' ? 'bg-green-100 text-green-700' :
-                      project.status === 'Ongoing' ? 'bg-blue-100 text-blue-700' :
-                      'bg-yellow-100 text-yellow-700'
-                    }`}>
-                      {project.status}
-                    </span>
-                    <span className="text-sm text-gray-500">{project.progress}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div className={`bg-gradient-to-r ${project.color} h-2 rounded-full transition-all duration-500`} style={{ width: `${project.progress}%` }}></div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <DynamicProjectsGrid />
         </div>
       </section>
 

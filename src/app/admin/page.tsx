@@ -15,11 +15,10 @@ import {
   getProducts,
   getProjects,
   getVolunteers,
-  updateContactStatus,
-  updateDonationStatus,
-  updateVolunteerStatus,
+  getAdminUpdates,
 } from "@/lib/api";
-import { RefreshCw, Server, AlertCircle } from "lucide-react";
+import { RefreshCw, Server, AlertCircle, Megaphone } from "lucide-react";
+import Link from "next/link";
 
 type SectionId = "contact" | "volunteers" | "donations" | "projects" | "blog" | "products";
 
@@ -57,6 +56,7 @@ export default function AdminDashboardPage() {
   const [blog, setBlog] = useState<unknown[]>([]);
   const [jobs, setJobs] = useState<unknown[]>([]);
   const [products, setProducts] = useState<unknown[]>([]);
+  const [updatesCount, setUpdatesCount] = useState(0);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -74,6 +74,7 @@ export default function AdminDashboardPage() {
         blogData,
         jobData,
         productData,
+        updatesData,
       ] = await Promise.all([
         getContactMessages(),
         getVolunteers(),
@@ -82,6 +83,7 @@ export default function AdminDashboardPage() {
         getBlogPosts(),
         getJobs(),
         getProducts(),
+        getAdminUpdates(),
       ]);
 
       setContact(contactData);
@@ -91,6 +93,7 @@ export default function AdminDashboardPage() {
       setBlog(blogData);
       setJobs(jobData);
       setProducts(productData);
+      setUpdatesCount(updatesData.length);
     } catch (err) {
       setHealth("offline");
       if (err instanceof ApiError && err.status === 401) {
@@ -107,21 +110,6 @@ export default function AdminDashboardPage() {
     loadData();
   }, [loadData]);
 
-  async function markContactRead(id: number) {
-    await updateContactStatus(id, "read");
-    loadData();
-  }
-
-  async function approveVolunteer(id: number) {
-    await updateVolunteerStatus(id, "approved");
-    loadData();
-  }
-
-  async function completeDonation(id: number) {
-    await updateDonationStatus(id, "completed");
-    loadData();
-  }
-
   const totalRecords =
     contact.length +
     volunteers.length +
@@ -129,7 +117,8 @@ export default function AdminDashboardPage() {
     projects.length +
     blog.length +
     jobs.length +
-    products.length;
+    products.length +
+    updatesCount;
 
   return (
     <div className="space-y-8">
@@ -162,7 +151,7 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-xl border border-slate-200 p-5">
           <div className="flex items-center gap-2 text-slate-600 mb-2">
             <Server className="w-4 h-4" />
@@ -180,150 +169,91 @@ export default function AdminDashboardPage() {
             {loading ? "—" : contact.filter((m) => m.status === "new").length}
           </p>
         </div>
+        <div className="bg-white rounded-xl border border-slate-200 p-5">
+          <p className="text-sm text-slate-600 mb-2">Published Updates</p>
+          <p className="text-2xl font-bold text-slate-900">{loading ? "—" : updatesCount}</p>
+          <Link href="/admin/updates" className="text-sm text-blue-600 hover:underline mt-2 inline-flex items-center gap-1">
+            <Megaphone className="w-3.5 h-3.5" />
+            Manage updates
+          </Link>
+        </div>
       </div>
 
       <Section id="contact" title={`Contact Messages (${contact.length})`}>
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <p className="text-sm text-slate-600">Review messages from the contact form.</p>
+          <Link href="/admin/contact" className="text-sm text-blue-600 hover:underline font-medium">View all →</Link>
+        </div>
         {contact.length === 0 ? (
           <EmptyRow message="No contact messages yet." />
         ) : (
-          <table className="min-w-full text-sm">
-            <thead>
-              <tr className="text-left text-slate-500 border-b">
-                <th className="pb-2 pr-4">Name</th>
-                <th className="pb-2 pr-4">Email</th>
-                <th className="pb-2 pr-4">Subject</th>
-                <th className="pb-2 pr-4">Status</th>
-                <th className="pb-2">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {contact.map((item) => (
-                <tr key={item.id} className="border-b border-slate-100 align-top">
-                  <td className="py-3 pr-4 font-medium">{item.name}</td>
-                  <td className="py-3 pr-4">{item.email}</td>
-                  <td className="py-3 pr-4">{item.subject || "—"}</td>
-                  <td className="py-3 pr-4">
-                    <span className="px-2 py-1 rounded-full text-xs bg-slate-100">{item.status}</span>
-                  </td>
-                  <td className="py-3">
-                    {item.status === "new" && (
-                      <button
-                        type="button"
-                        onClick={() => markContactRead(item.id)}
-                        className="text-blue-600 hover:underline"
-                      >
-                        Mark read
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <p className="text-sm text-slate-700">
+            {contact.filter((m) => m.status === "new").length} new · {contact.length} total
+          </p>
         )}
       </Section>
 
       <Section id="volunteers" title={`Volunteer Applications (${volunteers.length})`}>
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <p className="text-sm text-slate-600">Approve or reject volunteer applications.</p>
+          <Link href="/admin/volunteers" className="text-sm text-blue-600 hover:underline font-medium">Manage volunteers →</Link>
+        </div>
         {volunteers.length === 0 ? (
           <EmptyRow message="No volunteer applications yet." />
         ) : (
-          <table className="min-w-full text-sm">
-            <thead>
-              <tr className="text-left text-slate-500 border-b">
-                <th className="pb-2 pr-4">Name</th>
-                <th className="pb-2 pr-4">Email</th>
-                <th className="pb-2 pr-4">Skills</th>
-                <th className="pb-2 pr-4">Status</th>
-                <th className="pb-2">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {volunteers.map((item) => (
-                <tr key={item.id} className="border-b border-slate-100">
-                  <td className="py-3 pr-4 font-medium">{item.full_name}</td>
-                  <td className="py-3 pr-4">{item.email}</td>
-                  <td className="py-3 pr-4">{item.skills || "—"}</td>
-                  <td className="py-3 pr-4">{item.status}</td>
-                  <td className="py-3">
-                    {item.status === "pending" && (
-                      <button
-                        type="button"
-                        onClick={() => approveVolunteer(item.id)}
-                        className="text-blue-600 hover:underline"
-                      >
-                        Approve
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <p className="text-sm text-slate-700">
+            {volunteers.filter((v) => v.status === "pending").length} pending · {volunteers.length} total
+          </p>
         )}
       </Section>
 
       <Section id="donations" title={`Donations (${donations.length})`}>
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <p className="text-sm text-slate-600">Confirm and track donation records.</p>
+          <Link href="/admin/donations" className="text-sm text-blue-600 hover:underline font-medium">Manage donations →</Link>
+        </div>
         {donations.length === 0 ? (
           <EmptyRow message="No donations recorded yet." />
         ) : (
-          <table className="min-w-full text-sm">
-            <thead>
-              <tr className="text-left text-slate-500 border-b">
-                <th className="pb-2 pr-4">Donor</th>
-                <th className="pb-2 pr-4">Amount</th>
-                <th className="pb-2 pr-4">Reference</th>
-                <th className="pb-2 pr-4">Status</th>
-                <th className="pb-2">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {donations.map((item) => (
-                <tr key={item.id} className="border-b border-slate-100">
-                  <td className="py-3 pr-4">{item.donor_name || item.donor_email || "Anonymous"}</td>
-                  <td className="py-3 pr-4">
-                    {item.amount.toLocaleString()} {item.currency}
-                  </td>
-                  <td className="py-3 pr-4">{item.payment_reference || "—"}</td>
-                  <td className="py-3 pr-4">{item.status}</td>
-                  <td className="py-3">
-                    {item.status === "pending" && (
-                      <button
-                        type="button"
-                        onClick={() => completeDonation(item.id)}
-                        className="text-blue-600 hover:underline"
-                      >
-                        Mark completed
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <p className="text-sm text-slate-700">
+            {donations.filter((d) => d.status === "pending").length} pending · {donations.length} total
+          </p>
         )}
       </Section>
 
       <Section id="projects" title={`Projects (${projects.length})`}>
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <p className="text-sm text-slate-600">Manage project portfolio content on the site.</p>
+          <Link href="/admin/projects" className="text-sm text-blue-600 hover:underline font-medium">Manage projects →</Link>
+        </div>
         {projects.length === 0 ? (
-          <EmptyRow message="No projects yet. Create projects via the API docs." />
+          <EmptyRow message="No projects yet." />
         ) : (
-          <pre className="text-xs bg-slate-50 p-4 rounded-lg overflow-auto">{JSON.stringify(projects, null, 2)}</pre>
+          <p className="text-sm text-slate-700">{projects.length} project(s) in the database.</p>
         )}
       </Section>
 
       <Section id="blog" title={`Blog Posts (${blog.length})`}>
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <p className="text-sm text-slate-600">Publish and edit blog articles.</p>
+          <Link href="/admin/blog" className="text-sm text-blue-600 hover:underline font-medium">Manage blog →</Link>
+        </div>
         {blog.length === 0 ? (
-          <EmptyRow message="No blog posts yet. Create posts via the API docs." />
+          <EmptyRow message="No blog posts yet." />
         ) : (
-          <pre className="text-xs bg-slate-50 p-4 rounded-lg overflow-auto">{JSON.stringify(blog, null, 2)}</pre>
+          <p className="text-sm text-slate-700">{blog.length} post(s) in the database.</p>
         )}
       </Section>
 
       <Section id="products" title={`Products (${products.length})`}>
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <p className="text-sm text-slate-600">Manage marketplace products.</p>
+          <Link href="/admin/products" className="text-sm text-blue-600 hover:underline font-medium">Manage products →</Link>
+        </div>
         {products.length === 0 ? (
-          <EmptyRow message="No products yet. Create products via the API docs." />
+          <EmptyRow message="No products yet." />
         ) : (
-          <pre className="text-xs bg-slate-50 p-4 rounded-lg overflow-auto">{JSON.stringify(products, null, 2)}</pre>
+          <p className="text-sm text-slate-700">{products.length} product(s) in the database.</p>
         )}
       </Section>
     </div>

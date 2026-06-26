@@ -16,6 +16,18 @@ BACKEND_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_DIR = os.path.abspath(os.path.join(BACKEND_DIR, "..", "public", "uploads", "blog"))
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+@router.get("/public", response_model=List[BlogPostSchema])
+async def get_public_blog_posts(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    posts = (
+        db.query(BlogPostModel)
+        .filter(BlogPostModel.published == True)
+        .order_by(BlogPostModel.published_at.desc(), BlogPostModel.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+    return posts
+
 @router.get("/", response_model=List[BlogPostSchema])
 async def get_blog_posts(
     db: Session = Depends(get_db),

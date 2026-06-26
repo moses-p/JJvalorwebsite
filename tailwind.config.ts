@@ -54,6 +54,7 @@ const config: Config = {
         "slide-up": "slideUp 0.5s ease-out",
         "slide-down": "slideDown 0.5s ease-out",
         "scale-in": "scaleIn 0.5s ease-out",
+        marquee: "marquee 40s linear infinite",
       },
       keyframes: {
         fadeIn: {
@@ -71,6 +72,10 @@ const config: Config = {
         scaleIn: {
           "0%": { transform: "scale(0.9)", opacity: "0" },
           "100%": { transform: "scale(1)", opacity: "1" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
     },

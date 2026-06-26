@@ -164,3 +164,61 @@ class Order(Base):
     status = Column(String, default="pending")  # pending, processing, shipped, delivered, cancelled
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+class SiteUpdate(Base):
+    __tablename__ = "site_updates"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    message = Column(Text, nullable=False)
+    category = Column(String, default="news")  # program, news, event, announcement, milestone
+    link_url = Column(String)
+    link_label = Column(String)
+    image_url = Column(String)
+    show_in_marquee = Column(Boolean, default=True)
+    is_published = Column(Boolean, default=True)
+    priority = Column(Integer, default=0)
+    published_at = Column(DateTime(timezone=True), server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+class GalleryImage(Base):
+    __tablename__ = "gallery_images"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    alt_text = Column(String)
+    image_url = Column(String, nullable=False)
+    category = Column(String, default="Gallery")
+    is_published = Column(Boolean, default=True)
+    priority = Column(Integer, default=0)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+class Partner(Base):
+    __tablename__ = "partners"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    description = Column(Text)
+    logo_url = Column(String)
+    website_url = Column(String)
+    partner_type = Column(String, default="Corporate")
+    is_published = Column(Boolean, default=True)
+    priority = Column(Integer, default=0)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+class LeadershipMember(Base):
+    __tablename__ = "leadership_members"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    role = Column(String, nullable=False)
+    bio = Column(Text)
+    photo_url = Column(String)
+    email = Column(String)
+    sort_order = Column(Integer, default=0)
+    is_published = Column(Boolean, default=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())

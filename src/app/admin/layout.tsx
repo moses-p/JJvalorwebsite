@@ -4,16 +4,20 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { clearAdminSession, getAdminUser, isAdminAuthenticated } from "@/lib/auth";
-import { LayoutDashboard, LogOut, MessageSquare, Users, Heart, Briefcase, FileText, Package } from "lucide-react";
+import { LayoutDashboard, LogOut, MessageSquare, Users, Heart, Briefcase, FileText, Package, Megaphone, ImageIcon, Handshake, UserCircle } from "lucide-react";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin#contact", label: "Contact", icon: MessageSquare },
-  { href: "/admin#volunteers", label: "Volunteers", icon: Users },
-  { href: "/admin#donations", label: "Donations", icon: Heart },
-  { href: "/admin#projects", label: "Projects", icon: Briefcase },
-  { href: "/admin#blog", label: "Blog", icon: FileText },
-  { href: "/admin#products", label: "Products", icon: Package },
+  { href: "/admin/updates", label: "Updates & Marquee", icon: Megaphone },
+  { href: "/admin/gallery", label: "Gallery", icon: ImageIcon },
+  { href: "/admin/partners", label: "Partners", icon: Handshake },
+  { href: "/admin/leadership", label: "Leadership", icon: UserCircle },
+  { href: "/admin/projects", label: "Projects", icon: Briefcase },
+  { href: "/admin/blog", label: "Blog", icon: FileText },
+  { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/contact", label: "Contact", icon: MessageSquare },
+  { href: "/admin/volunteers", label: "Volunteers", icon: Users },
+  { href: "/admin/donations", label: "Donations", icon: Heart },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { companyInfo } from "@/data/company";
 import { services } from "@/data/services";
-import { getFeaturedGalleryImages } from "@/data/images";
 import HeroBackground from "@/components/HeroBackground";
-import ImageGallery from "@/components/ImageGallery";
+import DynamicImageGallery from "@/components/DynamicImageGallery";
+import UpdatesMarquee from "@/components/UpdatesMarquee";
+import LatestUpdatesSection from "@/components/LatestUpdatesSection";
 import { ArrowRight, Building2, Users, Target, Award, Heart, Zap, Calendar, Palette, Plane, Sparkles, Sprout, GraduationCap, Utensils } from "lucide-react";
 
 export default function Home() {
@@ -105,6 +106,8 @@ export default function Home() {
         </div>
       </section>
 
+      <UpdatesMarquee />
+
       {/* Impact Statistics Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -122,28 +125,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              About J.J Valor
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {companyInfo.description}
-            </p>
-          </div>
-          <div className="text-center">
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
-            >
-              Learn More About Us
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Latest Updates — dynamic from admin/API */}
+      <LatestUpdatesSection />
 
       {/* Featured Services Section */}
       <section className="py-16 md:py-24 bg-white">
@@ -206,7 +189,7 @@ export default function Home() {
               A glimpse of our projects, community work, and the impact we create across Uganda.
             </p>
           </div>
-          <ImageGallery images={getFeaturedGalleryImages(8)} columns={4} />
+          <DynamicImageGallery limit={8} columns={4} />
           <div className="text-center mt-12">
             <Link
               href="/media"

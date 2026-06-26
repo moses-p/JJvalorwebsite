@@ -3,14 +3,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
 
-from routers import projects, donations, contact, blog, jobs, products, volunteers, orders, auth
+from routers import projects, donations, contact, blog, jobs, products, volunteers, orders, auth, updates, gallery, partners, leadership, media
 from database import engine, Base
-from seed import seed_admin_user
+from migrate import run_migrations
+from seed import seed_admin_user, seed_site_updates, seed_content
 
 app = FastAPI(title="J.J Valor Enterprises API", version="1.0.0")
 
 Base.metadata.create_all(bind=engine)
+run_migrations()
 seed_admin_user()
+seed_site_updates()
+seed_content()
 
 # CORS middleware
 app.add_middleware(
@@ -40,6 +44,11 @@ app.include_router(products.router)
 app.include_router(volunteers.router)
 app.include_router(orders.router)
 app.include_router(auth.router)
+app.include_router(updates.router)
+app.include_router(gallery.router)
+app.include_router(partners.router)
+app.include_router(leadership.router)
+app.include_router(media.router)
 
 @app.get("/")
 async def root():

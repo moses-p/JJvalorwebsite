@@ -17,6 +17,18 @@ BACKEND_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_DIR = os.path.abspath(os.path.join(BACKEND_DIR, "..", "public", "uploads", "products"))
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+@router.get("/public", response_model=List[ProductSchema])
+async def get_public_products(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    products = (
+        db.query(ProductModel)
+        .filter(ProductModel.status == "active")
+        .order_by(ProductModel.featured.desc(), ProductModel.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+    return products
+
 @router.get("/", response_model=List[ProductSchema])
 async def get_products(
     db: Session = Depends(get_db),

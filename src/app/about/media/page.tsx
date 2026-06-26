@@ -1,7 +1,6 @@
 import { Calendar, Download, Video } from "lucide-react";
 import HeroBackground from "@/components/HeroBackground";
-import ImageGallery from "@/components/ImageGallery";
-import { getGalleryImages } from "@/data/images";
+import DynamicImageGallery from "@/components/DynamicImageGallery";
 
 export default function AboutMediaPage() {
   const newsItems = [
@@ -40,7 +39,7 @@ export default function AboutMediaPage() {
           </div>
 
           <h2 className="text-3xl font-bold text-gray-900 mb-8">Photo Gallery</h2>
-          <ImageGallery images={getGalleryImages()} columns={3} />
+          <DynamicImageGallery limit={50} columns={3} />
 
           <h2 className="text-3xl font-bold text-gray-900 mb-8 mt-16">Media Resources</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

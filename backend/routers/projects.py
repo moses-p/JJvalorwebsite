@@ -16,6 +16,18 @@ BACKEND_DIR = os.path.dirname(os.path.dirname(__file__))
 UPLOAD_DIR = os.path.abspath(os.path.join(BACKEND_DIR, "..", "public", "uploads", "projects"))
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
+@router.get("/public", response_model=List[ProjectSchema])
+async def get_public_projects(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    projects = (
+        db.query(ProjectModel)
+        .filter(ProjectModel.status == "active")
+        .order_by(ProjectModel.featured.desc(), ProjectModel.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+    return projects
+
 @router.get("/", response_model=List[ProjectSchema])
 async def get_projects(
     db: Session = Depends(get_db),

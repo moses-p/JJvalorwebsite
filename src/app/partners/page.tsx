@@ -1,5 +1,6 @@
 import { Handshake, Building2, Heart, Target, ArrowRight, CheckCircle, Users, Zap } from "lucide-react";
 import Link from "next/link";
+import DynamicPartnersGrid from "@/components/DynamicPartnersGrid";
 
 export default function PartnersPage() {
   const partnershipTypes = [
@@ -90,6 +91,8 @@ export default function PartnersPage() {
           </div>
         </div>
       </section>
+
+      <DynamicPartnersGrid />
 
       {/* Partnership Types */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-gray-100">
