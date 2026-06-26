@@ -2,6 +2,7 @@ export const companyInfo = {
   name: "J.J VALOR ENTERPRISES LTD",
   tagline: "Innovative Creativity Unbound",
   motto: "Innovative Creativity Unbound",
+  incorporationDate: "February 2024",
   heroTitle: "Building Value. Empowering Communities. Inspiring Excellence.",
   heroDescription: "Welcome to **J.J Valor Enterprises Ltd**, a dynamic multi-sector company committed to delivering innovative solutions that transform lives and create sustainable opportunities. We specialize in construction, branding, agriculture, events management, training, tours and travel, cleaning services, and community empowerment projects.\n\nDriven by excellence and creativity, we partner with institutions, organizations, schools, and individuals to provide practical solutions that foster growth and long-term impact.\n\n**Together, we are shaping a future of endless possibilities.**",
   footerMessage: "Building Excellence, Creating Opportunities, Transforming Lives.",
@@ -32,6 +33,9 @@ export const visionMission = {
 export const meaningBehindJJValor = {
   title: "The Meaning Behind J.J Valor",
   description: "The name **J.J Valor** represents courage, excellence, integrity, and the relentless pursuit of greatness. It embodies our commitment to creating value and making a lasting difference in society.",
+  jj: "J.J stands for the initials of our founder's father, Johns, whose memory and legacy inspire our commitment to building something meaningful. It represents honor, remembrance, and the foundation upon which our enterprise was built.",
+  valor: "Valor means courage, bravery, and strength in the face of adversity. It represents the boldness to dream big, the resilience to overcome challenges, and the determination to create lasting impact in our communities.",
+  logo: "Our logo features the letters JJ in a bold, modern design with a gradient from blue to deeper blue, symbolizing trust, professionalism, and depth. The rounded corners represent approachability and warmth, while the strong geometric structure reflects stability and reliability.",
 };
 
 export const coreValues = [

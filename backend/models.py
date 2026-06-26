@@ -82,7 +82,7 @@ class Volunteer(Base):
     availability = Column(String)
     message = Column(Text)
     status = Column(String, default="pending")  # pending, approved, rejected
-    created_at = Column(timezone=True), server_default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 class BlogPost(Base):
     __tablename__ = "blog_posts"
