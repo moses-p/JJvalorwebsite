@@ -1,19 +1,24 @@
 import { services } from "@/data/services";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import HeroBackground from "@/components/HeroBackground";
+import { ArrowRight, CheckCircle, Building2, Calendar, Palette, Plane, Sparkles, Sprout, GraduationCap, Utensils } from "lucide-react";
 
 export default function ServicesPage() {
+  const iconMap: Record<string, React.ElementType> = {
+    Building2,
+    Calendar,
+    Palette,
+    Plane,
+    Sparkles,
+    Sprout,
+    GraduationCap,
+    Utensils,
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
-        <div className="absolute inset-0">
-          <img 
-            src="/images/hero.jpg" 
-            alt="Our Services" 
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-blue-900/90"></div>
-        </div>
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        <HeroBackground alt="Our Services" overlay="light" />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yIDItNCAyLTRzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')]"></div>
         </div>
@@ -37,14 +42,17 @@ export default function ServicesPage() {
                 <div className={`h-2 bg-gradient-to-r ${service.color}`}></div>
                 <div className="p-8">
                   <div className={`w-16 h-16 mb-6 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <service.icon className="w-8 h-8 text-white" />
+                    {(() => {
+                      const IconComponent = iconMap[service.icon as string] || Building2;
+                      return <IconComponent className="w-8 h-8 text-white" />;
+                    })()}
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-gray-600 mb-6">{service.description}</p>
                   <div className="space-y-2">
-                    {service.features.map((feature, index) => (
+                    {service.services.map((feature, index) => (
                       <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
                         <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                         <span>{feature}</span>

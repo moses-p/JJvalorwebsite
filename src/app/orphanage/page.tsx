@@ -1,4 +1,5 @@
 import { Heart, Users, Home, GraduationCap, Apple, Stethoscope, Church, HandHeart, CreditCard, Smartphone, Building2, Mail } from "lucide-react";
+import HeroBackground from "@/components/HeroBackground";
 
 export default function OrphanagePage() {
   const currentNeeds = [
@@ -47,15 +48,9 @@ export default function OrphanagePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 bg-gradient-to-br from-orange-600 via-orange-500 to-orange-600">
-        <div className="absolute inset-0">
-          <img 
-            src="/images/hero.jpg" 
-            alt="Children's Orphanage Project" 
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-600/90 via-orange-500/90 to-orange-600/90"></div>
-        </div>
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        <HeroBackground alt="Children's Orphanage Project" overlay="light" />
+        <div className="absolute inset-0 z-[1] bg-gradient-to-br from-orange-600/45 via-orange-500/35 to-orange-600/45 pointer-events-none" />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yIDItNCAyLTRzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')]"></div>
         </div>

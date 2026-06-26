@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { companyInfo } from "@/data/company";
 import { services } from "@/data/services";
+import { getFeaturedGalleryImages } from "@/data/images";
+import HeroBackground from "@/components/HeroBackground";
+import ImageGallery from "@/components/ImageGallery";
 import { ArrowRight, Building2, Users, Target, Award, Heart, Zap, Calendar, Palette, Plane, Sparkles, Sprout, GraduationCap, Utensils } from "lucide-react";
 
 export default function Home() {
@@ -35,16 +38,8 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <img 
-            src="/images/hero.jpg" 
-            alt="J.J Valor Enterprises" 
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/90 to-blue-900/90"></div>
-        </div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <HeroBackground alt="J.J Valor Enterprises hero background" overlay="light" />
         {/* Animated Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yIDItNCAyLTRzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')]"></div>
@@ -194,6 +189,30 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
             >
               View All Services
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Gallery Preview */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              Our Work in Pictures
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              A glimpse of our projects, community work, and the impact we create across Uganda.
+            </p>
+          </div>
+          <ImageGallery images={getFeaturedGalleryImages(8)} columns={4} />
+          <div className="text-center mt-12">
+            <Link
+              href="/media"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
+            >
+              View Full Gallery
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>

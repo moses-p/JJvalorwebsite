@@ -4,55 +4,82 @@ from typing import List
 import os
 import shutil
 import uuid
+import json
 
+from auth import get_current_admin
 from database import get_db
-from models import Product
-from schemas import ProductBase, Product
+from models import Product as ProductModel, User as UserModel
+from schemas import ProductBase, Product as ProductSchema
 
 router = APIRouter(prefix="/api/products", tags=["products"])
 
-UPLOAD_DIR = "../public/uploads/products"
+BACKEND_DIR = os.path.dirname(os.path.dirname(__file__))
+UPLOAD_DIR = os.path.abspath(os.path.join(BACKEND_DIR, "..", "public", "uploads", "products"))
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-@router.get("/", response_model=List[Product])
-async def get_products(db: Session = Depends(get_db), skip: int = 0, limit: int = 100, category: str = None, status: str = None):
-    query = db.query(Product)
+@router.get("/", response_model=List[ProductSchema])
+async def get_products(
+    db: Session = Depends(get_db),
+    skip: int = 0,
+    limit: int = 100,
+    category: str = None,
+    status: str = None,
+    _admin: UserModel = Depends(get_current_admin),
+):
+    query = db.query(ProductModel)
     if category:
-        query = query.filter(Product.category == category)
+        query = query.filter(ProductModel.category == category)
     if status:
-        query = query.filter(Product.status == status)
+        query = query.filter(ProductModel.status == status)
     products = query.offset(skip).limit(limit).all()
     return products
 
-@router.get("/{product_id}", response_model=Product)
-async def get_product(product_id: int, db: Session = Depends(get_db)):
-    product = db.query(Product).filter(Product.id == product_id).first()
+@router.get("/{product_id}", response_model=ProductSchema)
+async def get_product(
+    product_id: int,
+    db: Session = Depends(get_db),
+    _admin: UserModel = Depends(get_current_admin),
+):
+    product = db.query(ProductModel).filter(ProductModel.id == product_id).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
     return product
 
-@router.get("/slug/{slug}", response_model=Product)
-async def get_product_by_slug(slug: str, db: Session = Depends(get_db)):
-    product = db.query(Product).filter(Product.slug == slug).first()
+@router.get("/slug/{slug}", response_model=ProductSchema)
+async def get_product_by_slug(
+    slug: str,
+    db: Session = Depends(get_db),
+    _admin: UserModel = Depends(get_current_admin),
+):
+    product = db.query(ProductModel).filter(ProductModel.slug == slug).first()
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
     return product
 
-@router.post("/", response_model=Product)
-async def create_product(product: ProductBase, db: Session = Depends(get_db)):
-    db_product = Product(**product.dict())
+@router.post("/", response_model=ProductSchema)
+async def create_product(
+    product: ProductBase,
+    db: Session = Depends(get_db),
+    _admin: UserModel = Depends(get_current_admin),
+):
+    db_product = ProductModel(**product.model_dump())
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
     return db_product
 
-@router.put("/{product_id}", response_model=Product)
-async def update_product(product_id: int, product: ProductBase, db: Session = Depends(get_db)):
-    db_product = db.query(Product).filter(Product.id == product_id).first()
+@router.put("/{product_id}", response_model=ProductSchema)
+async def update_product(
+    product_id: int,
+    product: ProductBase,
+    db: Session = Depends(get_db),
+    _admin: UserModel = Depends(get_current_admin),
+):
+    db_product = db.query(ProductModel).filter(ProductModel.id == product_id).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
     
-    for key, value in product.dict().items():
+    for key, value in product.model_dump().items():
         setattr(db_product, key, value)
     
     db.commit()
@@ -60,8 +87,12 @@ async def update_product(product_id: int, product: ProductBase, db: Session = De
     return db_product
 
 @router.delete("/{product_id}")
-async def delete_product(product_id: int, db: Session = Depends(get_db)):
-    db_product = db.query(Product).filter(Product.id == product_id).first()
+async def delete_product(
+    product_id: int,
+    db: Session = Depends(get_db),
+    _admin: UserModel = Depends(get_current_admin),
+):
+    db_product = db.query(ProductModel).filter(ProductModel.id == product_id).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
     
@@ -70,8 +101,13 @@ async def delete_product(product_id: int, db: Session = Depends(get_db)):
     return {"message": "Product deleted successfully"}
 
 @router.post("/{product_id}/upload-images")
-async def upload_product_images(product_id: int, files: List[UploadFile] = File(...), db: Session = Depends(get_db)):
-    db_product = db.query(Product).filter(Product.id == product_id).first()
+async def upload_product_images(
+    product_id: int,
+    files: List[UploadFile] = File(...),
+    db: Session = Depends(get_db),
+    _admin: UserModel = Depends(get_current_admin),
+):
+    db_product = db.query(ProductModel).filter(ProductModel.id == product_id).first()
     if not db_product:
         raise HTTPException(status_code=404, detail="Product not found")
     
@@ -86,7 +122,6 @@ async def upload_product_images(product_id: int, files: List[UploadFile] = File(
         
         image_urls.append(f"/uploads/products/{unique_filename}")
     
-    import json
     db_product.images = json.dumps(image_urls)
     db.commit()
     db.refresh(db_product)

@@ -3,9 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
 
-from routers import projects, donations, contact, blog, jobs, products, volunteers, orders
+from routers import projects, donations, contact, blog, jobs, products, volunteers, orders, auth
+from database import engine, Base
+from seed import seed_admin_user
 
 app = FastAPI(title="J.J Valor Enterprises API", version="1.0.0")
+
+Base.metadata.create_all(bind=engine)
+seed_admin_user()
 
 # CORS middleware
 app.add_middleware(
@@ -17,7 +22,9 @@ app.add_middleware(
 )
 
 # Mount static files for uploads
-uploads_dir = os.path.join(os.path.dirname(__file__), "../public/uploads")
+backend_dir = os.path.dirname(__file__)
+project_root = os.path.abspath(os.path.join(backend_dir, ".."))
+uploads_dir = os.path.join(project_root, "public", "uploads")
 if not os.path.exists(uploads_dir):
     os.makedirs(uploads_dir)
 
@@ -32,6 +39,7 @@ app.include_router(jobs.router)
 app.include_router(products.router)
 app.include_router(volunteers.router)
 app.include_router(orders.router)
+app.include_router(auth.router)
 
 @app.get("/")
 async def root():

@@ -34,6 +34,8 @@ class Category(Base):
     icon = Column(String)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
+    projects = relationship("Project", secondary=project_categories, back_populates="categories")
+
 class Project(Base):
     __tablename__ = "projects"
     
