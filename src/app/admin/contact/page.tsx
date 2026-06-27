@@ -30,8 +30,13 @@ export default function AdminContactPage() {
   }, [load]);
 
   async function setStatus(id: number, status: string) {
-    await updateContactStatus(id, status);
-    await load();
+    setError(null);
+    try {
+      await updateContactStatus(id, status);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update message");
+    }
   }
 
   return (

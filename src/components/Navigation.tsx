@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { navigationItems, NavigationItem } from "@/data/navigation";
+import BrandLogo from "@/components/BrandLogo";
 import { Menu, X, Phone, Mail, MapPin, ChevronDown } from "lucide-react";
 
 export default function Navigation() {
@@ -51,10 +52,8 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg md:text-xl">JJ</span>
-              </div>
+            <Link href="/" className="flex items-center gap-3 shrink-0">
+              <BrandLogo />
               <div className="hidden sm:block">
                 <div className="font-bold text-lg md:text-xl text-gray-900">J.J VALOR</div>
                 <div className="text-xs text-gray-600">ENTERPRISES LTD</div>

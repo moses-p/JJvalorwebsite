@@ -47,6 +47,7 @@ function EmptyRow({ message }: { message: string }) {
 
 export default function AdminDashboardPage() {
   const [health, setHealth] = useState("checking");
+  const [cmsReady, setCmsReady] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [contact, setContact] = useState<ContactMessage[]>([]);
@@ -65,6 +66,7 @@ export default function AdminDashboardPage() {
     try {
       const healthResponse = await getApiHealth();
       setHealth(healthResponse.status);
+      setCmsReady(healthResponse.cms_ready !== false);
 
       const [
         contactData,
@@ -146,6 +148,19 @@ export default function AdminDashboardPage() {
             <p className="text-sm mt-1">{error}</p>
             <p className="text-sm mt-2">
               Make sure the API is running at <code className="bg-white px-1 rounded">{API_BASE_URL}</code>
+            </p>
+          </div>
+        </div>
+      )}
+
+      {!cmsReady && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900 flex gap-3">
+          <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+          <div>
+            <p className="font-semibold">Backend needs a restart</p>
+            <p className="text-sm mt-1">
+              The API is running old code without gallery, upload, and CMS routes. Stop the backend (Ctrl+C) and run{" "}
+              <code className="bg-white px-1 rounded">python main.py</code> again from the <code className="bg-white px-1 rounded">backend</code> folder.
             </p>
           </div>
         </div>

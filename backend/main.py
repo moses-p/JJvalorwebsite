@@ -19,7 +19,12 @@ seed_content()
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,7 +61,9 @@ async def root():
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy"}
+    route_paths = {getattr(route, "path", "") for route in app.routes}
+    cms_ready = "/api/gallery/public" in route_paths and "/api/media/upload" in route_paths
+    return {"status": "healthy", "cms_ready": cms_ready, "api_url": "http://localhost:8000"}
 
 if __name__ == "__main__":
     import uvicorn

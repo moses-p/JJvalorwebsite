@@ -27,6 +27,7 @@ export default function AdminGalleryPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [form, setForm] = useState<GalleryImagePayload>(emptyForm);
   const [editingId, setEditingId] = useState<number | null>(null);
 
@@ -65,13 +66,19 @@ export default function AdminGalleryPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!form.image_url && !editingId) {
+      setError("Add an image URL or upload a photo before saving.");
+      return;
+    }
     setSaving(true);
     setError(null);
+    setSuccess(null);
     try {
       if (editingId) await updateGalleryImage(editingId, form);
       else await createGalleryImage(form);
       resetForm();
       await load();
+      setSuccess("Gallery image saved.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save image");
     } finally {
@@ -108,6 +115,7 @@ export default function AdminGalleryPage() {
       </div>
 
       {error && <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-red-700 text-sm">{error}</div>}
+      {success && <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-green-800 text-sm">{success}</div>}
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
         <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">

@@ -30,8 +30,13 @@ export default function AdminVolunteersPage() {
   }, [load]);
 
   async function setStatus(id: number, status: string) {
-    await updateVolunteerStatus(id, status);
-    await load();
+    setError(null);
+    try {
+      await updateVolunteerStatus(id, status);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update application");
+    }
   }
 
   return (

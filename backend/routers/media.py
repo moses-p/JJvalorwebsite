@@ -2,7 +2,7 @@ import os
 import shutil
 import uuid
 
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, Query, UploadFile
 
 from auth import get_current_admin
 from models import User as UserModel
@@ -16,7 +16,7 @@ UPLOAD_ROOT = os.path.abspath(os.path.join(BACKEND_DIR, "..", "public", "uploads
 @router.post("/upload")
 async def upload_media(
     file: UploadFile = File(...),
-    folder: str = "content",
+    folder: str = Query(default="content"),
     _admin: UserModel = Depends(get_current_admin),
 ):
     safe_folder = folder.replace("..", "").strip("/\\") or "content"

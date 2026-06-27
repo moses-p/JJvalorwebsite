@@ -1,10 +1,10 @@
 export const companyInfo = {
-  name: "J.J VALOR ENTERPRISES LTD",
+  name: "J.J VALOR",
   tagline: "Innovative Creativity Unbound",
   motto: "Innovative Creativity Unbound",
   incorporationDate: "February 2024",
   heroTitle: "Building Value. Empowering Communities. Inspiring Excellence.",
-  heroDescription: "Welcome to **J.J Valor Enterprises Ltd**, a dynamic multi-sector company committed to delivering innovative solutions that transform lives and create sustainable opportunities. We specialize in construction, branding, agriculture, events management, training, tours and travel, cleaning services, and community empowerment projects.\n\nDriven by excellence and creativity, we partner with institutions, organizations, schools, and individuals to provide practical solutions that foster growth and long-term impact.\n\n**Together, we are shaping a future of endless possibilities.**",
+  // heroDescription: "Welcome to **J.J Valor Enterprises Ltd**, a dynamic multi-sector company committed to delivering innovative solutions that transform lives and create sustainable opportunities. We specialize in construction, branding, agriculture, events management, training, tours and travel, cleaning services, and community empowerment projects.\n\nDriven by excellence and creativity, we partner with institutions, organizations, schools, and individuals to provide practical solutions that foster growth and long-term impact.\n\n**Together, we are shaping a future of endless possibilities.**",
   footerMessage: "Building Excellence, Creating Opportunities, Transforming Lives.",
   contact: {
     phone: ["+256705691361", "+256777619877"],

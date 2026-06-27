@@ -20,6 +20,7 @@ export default function DynamicImageGallery({ limit = 8, columns = 4 }: DynamicI
       if (data.length > 0) {
         setImages(
           data.map((item) => ({
+            id: item.id,
             src: resolveImageUrl(item.image_url),
             alt: item.alt_text || item.title,
             category: item.category,

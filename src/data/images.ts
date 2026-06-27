@@ -1,15 +1,23 @@
 export const heroImage = "/images/hero.jpg";
 
-export const logoImage = "/images/logo.png";
+/** Main site logo (navbar, footer, admin). Not the favicon. */
+export const logoImage = "/logo/logo.png";
+
+/** Cropped logo without excess whitespace — preferred for UI */
+export const logoMarkImage = "/logo/logo-mark.png";
+
+/** Browser tab icon only */
+export const faviconImage = "/favicon.ico";
 
 export type SiteImage = {
+  id?: string | number;
   src: string;
   alt: string;
   category?: string;
 };
 
 const galleryImages: SiteImage[] = [
-  { src: "/images/hero.jpg", alt: "J.J Valor Enterprises team and projects", category: "Featured" },
+  { id: "gallery-hero", src: "/images/hero.jpg", alt: "J.J Valor Enterprises team and projects", category: "Featured" },
   { src: "/images/IMG-20260609-WA0002.png", alt: "J.J Valor community event", category: "Events" },
   { src: "/images/IMG-20260609-WA0007.jpg", alt: "J.J Valor project work", category: "Projects" },
   { src: "/images/IMG-20260609-WA0008.jpg", alt: "J.J Valor community outreach", category: "Community" },

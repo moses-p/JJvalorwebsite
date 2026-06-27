@@ -56,7 +56,7 @@ export default function AboutMediaPage() {
             <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 text-center">
               <Download className="w-12 h-12 text-purple-600 mx-auto mb-4" />
               <h3 className="text-lg font-bold text-gray-900 mb-2">Brand Assets</h3>
-              <p className="text-gray-600 text-sm">Logo files can be added to public/images/logo.png</p>
+              <p className="text-gray-600 text-sm">Brand assets are in public/logo/</p>
             </div>
           </div>
         </div>

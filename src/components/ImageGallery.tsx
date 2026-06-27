@@ -29,9 +29,9 @@ export default function ImageGallery({ images, columns = 3 }: ImageGalleryProps)
   return (
     <>
       <div className={`grid ${gridClass} gap-4`}>
-        {images.map((image) => (
+        {images.map((image, index) => (
           <button
-            key={image.src}
+            key={image.id ?? `${index}-${image.src}`}
             type="button"
             onClick={() => setSelected(image)}
             className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-100 text-left shadow-md hover:shadow-xl transition-shadow"

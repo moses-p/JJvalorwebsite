@@ -1,6 +1,14 @@
-import { getAdminToken } from "./auth";
+import { getAdminToken, clearAdminSession } from "./auth";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+function handleUnauthorized() {
+  if (typeof window === "undefined") return;
+  clearAdminSession();
+  if (!window.location.pathname.startsWith("/admin/login")) {
+    window.location.href = "/admin/login";
+  }
+}
 
 export class ApiError extends Error {
   status: number;
@@ -13,13 +21,18 @@ export class ApiError extends Error {
 
 async function apiRequest<T>(path: string, options?: RequestInit, auth = false): Promise<T> {
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
     ...(options?.headers as Record<string, string>),
   };
+
+  const isFormData = typeof FormData !== "undefined" && options?.body instanceof FormData;
+  if (!isFormData && !headers["Content-Type"]) {
+    headers["Content-Type"] = "application/json";
+  }
 
   if (auth) {
     const token = getAdminToken();
     if (!token) {
+      handleUnauthorized();
       throw new ApiError("Not authenticated", 401);
     }
     headers.Authorization = `Bearer ${token}`;
@@ -34,12 +47,20 @@ async function apiRequest<T>(path: string, options?: RequestInit, auth = false):
     let message = `API request failed (${response.status})`;
     try {
       const data = await response.json();
-      message = data.detail || data.message || message;
+      const detail = data.detail ?? data.message;
+      if (Array.isArray(detail)) {
+        message = detail.map((item: { msg?: string; loc?: string[] }) => item.msg || JSON.stringify(item)).join("; ");
+      } else if (detail) {
+        message = typeof detail === "string" ? detail : JSON.stringify(detail);
+      }
     } catch {
       const text = await response.text();
       if (text) message = text;
     }
-    throw new ApiError(typeof message === "string" ? message : JSON.stringify(message), response.status);
+    if (response.status === 401 && auth) {
+      handleUnauthorized();
+    }
+    throw new ApiError(message, response.status);
   }
 
   if (response.status === 204) {
@@ -135,7 +156,7 @@ export async function getAdminProfile() {
 }
 
 export async function getApiHealth() {
-  return apiRequest<{ status: string }>("/health");
+  return apiRequest<{ status: string; cms_ready?: boolean }>("/health");
 }
 
 export async function submitContactMessage(payload: ContactPayload) {
@@ -412,7 +433,20 @@ export async function uploadMedia(file: File, folder = "content") {
     headers: { Authorization: `Bearer ${token}` },
     body: formData,
   });
-  if (!response.ok) throw new ApiError("Upload failed", response.status);
+  if (!response.ok) {
+    let message = `Upload failed (${response.status})`;
+    try {
+      const data = await response.json();
+      message = typeof data.detail === "string" ? data.detail : message;
+    } catch {
+      const text = await response.text();
+      if (text) message = text;
+    }
+    if (response.status === 401) {
+      handleUnauthorized();
+    }
+    throw new ApiError(message, response.status);
+  }
   return response.json() as Promise<{ url: string }>;
 }
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginAdmin } from "@/lib/api";
 import { setAdminSession } from "@/lib/auth";
+import BrandLogo from "@/components/BrandLogo";
 import { Lock, User } from "lucide-react";
 
 export default function AdminLoginPage() {
@@ -33,9 +34,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-2xl">
-            JJ
-          </div>
+          <BrandLogo className="h-20 md:h-24 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white">Admin Login</h1>
           <p className="text-slate-400 mt-2">Sign in to manage J.J Valor content and submissions</p>
         </div>

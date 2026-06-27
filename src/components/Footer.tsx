@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { companyInfo } from "@/data/company";
+import BrandLogo from "@/components/BrandLogo";
 import { navigationItems } from "@/data/navigation";
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 
@@ -14,9 +15,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">JJ</span>
-              </div>
+              <BrandLogo className="h-16 md:h-20" />
               <div>
                 <div className="font-bold text-lg">J.J VALOR</div>
                 <div className="text-xs text-gray-400">ENTERPRISES LTD</div>

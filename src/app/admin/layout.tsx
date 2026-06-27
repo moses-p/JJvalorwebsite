@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { clearAdminSession, getAdminUser, isAdminAuthenticated } from "@/lib/auth";
+import { API_BASE_URL } from "@/lib/api";
+import { clearAdminSession, getAdminUser, verifyAdminSession } from "@/lib/auth";
+import BrandLogo from "@/components/BrandLogo";
 import { LayoutDashboard, LogOut, MessageSquare, Users, Heart, Briefcase, FileText, Package, Megaphone, ImageIcon, Handshake, UserCircle } from "lucide-react";
 
 const navItems = [
@@ -27,21 +29,37 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const isLoginPage = pathname === "/admin/login";
 
   useEffect(() => {
-    if (isLoginPage) {
-      if (isAdminAuthenticated()) {
-        router.replace("/admin");
-      } else {
+    let cancelled = false;
+
+    async function checkAuth() {
+      setReady(false);
+      const authenticated = await verifyAdminSession(API_BASE_URL);
+
+      if (cancelled) return;
+
+      if (isLoginPage) {
+        if (authenticated) {
+          router.replace("/admin");
+          return;
+        }
         setReady(true);
+        return;
       }
-      return;
+
+      if (!authenticated) {
+        clearAdminSession();
+        router.replace("/admin/login");
+        return;
+      }
+
+      setReady(true);
     }
 
-    if (!isAdminAuthenticated()) {
-      router.replace("/admin/login");
-      return;
-    }
+    checkAuth();
 
-    setReady(true);
+    return () => {
+      cancelled = true;
+    };
   }, [isLoginPage, pathname, router]);
 
   function handleLogout() {
@@ -67,8 +85,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen bg-slate-100 flex">
       <aside className="hidden lg:flex w-64 bg-slate-950 text-white flex-col">
         <div className="p-6 border-b border-slate-800">
-          <p className="text-xs uppercase tracking-wider text-slate-400">J.J Valor</p>
-          <h1 className="text-xl font-bold mt-1">Admin Panel</h1>
+          <Link href="/admin" className="flex items-center gap-3">
+            <BrandLogo className="h-12 w-auto" />
+            <div>
+              <p className="text-xs uppercase tracking-wider text-slate-400">J.J Valor</p>
+              <h1 className="text-lg font-bold">Admin Panel</h1>
+            </div>
+          </Link>
         </div>
         <nav className="flex-1 p-4 space-y-1">
           {navItems.map((item) => (
@@ -98,7 +121,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       <div className="flex-1 min-w-0">
         <header className="lg:hidden bg-slate-950 text-white px-4 py-3 flex items-center justify-between">
-          <span className="font-semibold">J.J Valor Admin</span>
+          <div className="flex items-center gap-2">
+            <BrandLogo className="h-10 w-auto" />
+            <span className="font-semibold">J.J Valor Admin</span>
+          </div>
           <button type="button" onClick={handleLogout} className="text-sm text-slate-300">
             Log out
           </button>

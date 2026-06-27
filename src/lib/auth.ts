@@ -39,3 +39,22 @@ export function clearAdminSession() {
 export function isAdminAuthenticated(): boolean {
   return Boolean(getAdminToken());
 }
+
+export async function verifyAdminSession(apiBaseUrl: string): Promise<boolean> {
+  const token = getAdminToken();
+  if (!token) return false;
+
+  try {
+    const response = await fetch(`${apiBaseUrl}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!response.ok) {
+      clearAdminSession();
+      return false;
+    }
+    return true;
+  } catch {
+    clearAdminSession();
+    return false;
+  }
+}

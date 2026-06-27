@@ -30,8 +30,13 @@ export default function AdminDonationsPage() {
   }, [load]);
 
   async function setStatus(id: number, status: string) {
-    await updateDonationStatus(id, status);
-    await load();
+    setError(null);
+    try {
+      await updateDonationStatus(id, status);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update donation");
+    }
   }
 
   const totalAmount = items

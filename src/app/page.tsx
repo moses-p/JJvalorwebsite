@@ -66,9 +66,9 @@ export default function Home() {
             </h2>
 
             {/* Hero Description */}
-            <p className="text-lg md:text-xl text-blue-200 mb-8 max-w-4xl mx-auto leading-relaxed">
+            {/* <p className="text-lg md:text-xl text-blue-200 mb-8 max-w-4xl mx-auto leading-relaxed">
               {companyInfo.heroDescription}
-            </p>
+            </p> */}
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
