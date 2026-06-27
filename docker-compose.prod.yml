@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  backend:
+    image: mosesp/jj-valor-backend:latest
+    container_name: jj-valor-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./jj_valor.db
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=480
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+    volumes:
+      - ./data/jj_valor.db:/app/jj_valor.db
+      - ./data/uploads:/app/uploads
+    restart: unless-stopped
+    networks:
+      - jj-valor-network
+
+  frontend:
+    image: mosesp/jj-valor-frontend:latest
+    container_name: jj-valor-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=${API_URL}
+      - NEXT_PUBLIC_SITE_URL=${SITE_URL}
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - jj-valor-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: jj-valor-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./data/uploads:/usr/share/nginx/html/uploads:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    networks:
+      - jj-valor-network
+
+networks:
+  jj-valor-network:
+    driver: bridge

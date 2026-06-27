@@ -20,7 +20,7 @@ import {
 import { RefreshCw, Server, AlertCircle, Megaphone } from "lucide-react";
 import Link from "next/link";
 
-type SectionId = "contact" | "volunteers" | "donations" | "projects" | "blog" | "products";
+type SectionId = "contact" | "volunteers" | "donations" | "projects" | "blog" | "products" | "users";
 
 function Section({
   id,
@@ -270,6 +270,14 @@ export default function AdminDashboardPage() {
         ) : (
           <p className="text-sm text-slate-700">{products.length} product(s) in the database.</p>
         )}
+      </Section>
+
+      <Section id="users" title="User Management">
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <p className="text-sm text-slate-600">Create and manage admin users with specific privileges.</p>
+          <Link href="/admin/users" className="text-sm text-blue-600 hover:underline font-medium">Manage users →</Link>
+        </div>
+        <p className="text-sm text-slate-700">Control who can access the admin panel and what they can do.</p>
       </Section>
     </div>
   );

@@ -36,6 +36,14 @@ async def get_volunteer(
 
 @router.post("/", response_model=VolunteerSchema)
 async def create_volunteer(volunteer: VolunteerBase, db: Session = Depends(get_db)):
+    # Sanitize inputs to prevent abuse
+    if volunteer.message:
+        volunteer.message = volunteer.message.strip()[:2000]
+    if volunteer.skills:
+        volunteer.skills = volunteer.skills.strip()[:500]
+    if volunteer.availability:
+        volunteer.availability = volunteer.availability.strip()[:200]
+    
     db_volunteer = VolunteerModel(**volunteer.model_dump())
     db.add(db_volunteer)
     db.commit()

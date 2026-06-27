@@ -32,6 +32,12 @@ async def get_message(
 
 @router.post("/", response_model=ContactMessageSchema)
 async def create_message(message: ContactMessageBase, db: Session = Depends(get_db)):
+    # Sanitize inputs to prevent abuse
+    if message.message:
+        message.message = message.message.strip()[:2000]
+    if message.subject:
+        message.subject = message.subject.strip()[:200]
+    
     db_message = ContactMessageModel(**message.model_dump())
     db.add(db_message)
     db.commit()

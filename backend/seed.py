@@ -180,12 +180,15 @@ def seed_admin_user() -> None:
             return
 
         admin = UserModel(
-            email=os.getenv("ADMIN_EMAIL", "admin@jjvalor.com"),
+            email=os.getenv("ADMIN_EMAIL", "jonvalors@gmail.com"),
             username=username,
             hashed_password=get_password_hash(os.getenv("ADMIN_PASSWORD", "admin123")),
             full_name="J.J Valor Administrator",
             is_active=True,
             is_admin=True,
+            can_manage_content=True,
+            can_manage_users=True,
+            can_view_analytics=True,
         )
         db.add(admin)
         db.commit()

@@ -141,6 +141,9 @@ export type LoginResponse = {
     full_name?: string | null;
     is_admin: boolean;
     is_active: boolean;
+    can_manage_content?: boolean;
+    can_manage_users?: boolean;
+    can_view_analytics?: boolean;
   };
 };
 

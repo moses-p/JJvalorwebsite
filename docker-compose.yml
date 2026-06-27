@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: jj-valor-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./jj_valor.db
+      - SECRET_KEY=change-this-to-a-secure-random-key-in-production
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=480
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin123
+      - ADMIN_EMAIL=jonvalors@gmail.com
+    volumes:
+      - ./backend/jj_valor.db:/app/jj_valor.db
+      - ./public/uploads:/app/uploads
+    restart: unless-stopped
+    networks:
+      - jj-valor-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jj-valor-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_SITE_URL=http://localhost:3000
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - jj-valor-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: jj-valor-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./public/uploads:/usr/share/nginx/html/uploads:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    networks:
+      - jj-valor-network
+
+networks:
+  jj-valor-network:
+    driver: bridge

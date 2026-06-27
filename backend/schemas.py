@@ -14,6 +14,9 @@ class User(UserBase):
     id: int
     is_active: bool
     is_admin: bool
+    can_manage_content: bool
+    can_manage_users: bool
+    can_view_analytics: bool
     created_at: datetime
     
     class Config:
