@@ -20,8 +20,8 @@ export default function OrphanageDonatePage() {
     <div className="min-h-screen">
       <section className="relative py-20 md:py-32 bg-gradient-to-br from-pink-600 via-pink-500 to-pink-600">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Donate</h1>
-          <p className="text-xl text-pink-100">Support our orphanage project with your donation</p>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">Donate</h1>
+          <p className="text-xl text-pink-100 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">Support our orphanage project with your donation</p>
         </div>
       </section>
 
@@ -30,9 +30,9 @@ export default function OrphanageDonatePage() {
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Donation Amounts</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
             {donationAmounts.map((item, index) => (
-              <button key={index} className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 text-center hover:shadow-xl transition-shadow border-2 border-transparent hover:border-pink-400">
-                <div className="text-2xl font-bold text-pink-600 mb-2">{item.amount}</div>
-                <p className="text-sm text-gray-600">{item.impact}</p>
+              <button key={index} className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl p-6 text-center hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 border-2 border-transparent hover:border-pink-400 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="text-2xl font-bold text-pink-600 mb-2 group-hover:scale-110 transition-transform duration-300">{item.amount}</div>
+                <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">{item.impact}</p>
               </button>
             ))}
           </div>
@@ -40,24 +40,25 @@ export default function OrphanageDonatePage() {
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Payment Methods</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {paymentMethods.map((method, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 text-center">
-                <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <method.icon className="w-7 h-7 text-white" />
+              <div key={index} className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 text-center hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="w-14 h-14 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-xl">
+                  <method.icon className="w-7 h-7 text-white hover:scale-110 transition-transform duration-300" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{method.title}</h3>
-                <p className="text-sm text-gray-600">{method.description}</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition-colors duration-300">{method.title}</h3>
+                <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">{method.description}</p>
               </div>
             ))}
           </div>
 
-          <div className="max-w-2xl mx-auto bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Quick Donate</h3>
+          <div className="max-w-2xl mx-auto bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center group-hover:text-pink-600 transition-colors duration-300">Quick Donate</h3>
             <div className="space-y-4">
-              <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500" />
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500" />
-              <input type="number" placeholder="Amount (UGX)" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500" />
-              <button className="w-full py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg font-semibold hover:from-pink-600 hover:to-pink-700 transition-colors">
-                Donate Now
+              <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-300 hover:border-pink-400 hover:shadow-md" />
+              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-300 hover:border-pink-400 hover:shadow-md" />
+              <input type="number" placeholder="Amount (UGX)" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-300 hover:border-pink-400 hover:shadow-md" />
+              <button className="w-full py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-lg font-semibold hover:from-pink-600 hover:to-pink-700 transition-all duration-300 hover:scale-105 transform active:scale-95 group relative overflow-hidden">
+                <span className="relative z-10">Donate Now</span>
+                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
               </button>
             </div>
           </div>
@@ -67,8 +68,10 @@ export default function OrphanageDonatePage() {
       <section className="py-16 md:py-24 bg-gradient-to-r from-pink-600 via-pink-500 to-pink-600 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white mb-6">Every Donation Makes a Difference</h2>
-          <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-pink-600 rounded-xl font-semibold">
-            Contact Us <ArrowRight className="w-5 h-5" />
+          <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-pink-600 rounded-xl font-semibold hover:scale-105 transform active:scale-95 transition-all duration-300 shadow-lg hover:shadow-xl group relative overflow-hidden">
+            <span className="relative z-10">Contact Us</span>
+            <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+            <div className="absolute inset-0 bg-pink-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
           </Link>
         </div>
       </section>

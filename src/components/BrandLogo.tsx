@@ -4,12 +4,12 @@ type BrandLogoProps = {
   className?: string;
 };
 
-export default function BrandLogo({ className = "h-14 md:h-16 lg:h-[4.5rem]" }: BrandLogoProps) {
+export default function BrandLogo({ className = "h-20 md:h-24 lg:h-28" }: BrandLogoProps) {
   return (
     <img
       src={logoMarkImage}
       alt="J.J Valor Enterprises"
-      className={`${className} w-auto max-w-[220px] md:max-w-[260px] object-contain`}
+      className={`${className} w-auto max-w-[300px] md:max-w-[350px] object-contain`}
       onError={(e) => {
         const target = e.currentTarget;
         if (!target.dataset.fallback) {

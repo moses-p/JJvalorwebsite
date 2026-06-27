@@ -29,8 +29,8 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yIDItNCAyLTRzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')]"></div>
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">About Us</h1>
-          <p className="text-xl md:text-2xl text-blue-200 max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">About Us</h1>
+          <p className="text-xl md:text-2xl text-blue-200 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
             Building Businesses That Build Lives
           </p>
         </div>
@@ -40,25 +40,25 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Company Overview</h2>
+            <div className="animate-in fade-in slide-in-from-left-4 duration-700">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 group-hover:text-blue-600 transition-colors duration-300">Company Overview</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>{companyInfo.description}</p>
                 <div className="grid grid-cols-2 gap-4 mt-6">
-                  <div className="bg-blue-50 p-4 rounded-lg">
+                  <div className="bg-blue-50 p-4 rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 transform">
                     <div className="text-sm text-gray-500">Incorporated</div>
                     <div className="font-semibold text-gray-900">{companyInfo.incorporationDate}</div>
                   </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
+                  <div className="bg-blue-50 p-4 rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 transform">
                     <div className="text-sm text-gray-500">Motto</div>
                     <div className="font-semibold text-gray-900">{companyInfo.motto}</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 text-white hover:shadow-2xl transition-all duration-500 transform hover:scale-105 animate-in fade-in slide-in-from-right-4 duration-700">
               <div className="text-center">
-                <div className="w-24 h-24 mx-auto mb-4 bg-white/20 rounded-xl flex items-center justify-center">
+                <div className="w-24 h-24 mx-auto mb-4 bg-white/20 rounded-xl flex items-center justify-center hover:scale-110 hover:rotate-6 transition-all duration-500">
                   <span className="text-4xl font-bold">JJ</span>
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{companyInfo.name}</h3>
@@ -72,12 +72,12 @@ export default function AboutPage() {
       {/* Founder's Story */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{founderStory.title}</h2>
+          <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">{founderStory.title}</h2>
             <p className="text-xl text-gray-600">The inspiring journey of {founderStory.founder}</p>
           </div>
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 hover:shadow-2xl transition-all duration-500 transform hover:scale-102 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
               <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed whitespace-pre-line">
                 {founderStory.story}
               </div>
@@ -91,18 +91,18 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Vision */}
-            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 text-white hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-left-4 duration-700">
               <div className="flex items-center gap-4 mb-6">
-                <Target className="w-12 h-12" />
+                <Target className="w-12 h-12 hover:scale-110 hover:rotate-12 transition-all duration-300" />
                 <h3 className="text-2xl font-bold">Our Vision</h3>
               </div>
               <p className="text-lg leading-relaxed">{visionMission.vision}</p>
             </div>
 
             {/* Mission */}
-            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-right-4 duration-700 delay-200">
               <div className="flex items-center gap-4 mb-6">
-                <Heart className="w-12 h-12" />
+                <Heart className="w-12 h-12 hover:scale-110 hover:rotate-12 transition-all duration-300" />
                 <h3 className="text-2xl font-bold">Our Mission</h3>
               </div>
               <p className="text-lg leading-relaxed">{visionMission.mission}</p>
@@ -148,12 +148,12 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {coreValues.map((value, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 hover:shadow-xl transition-shadow duration-300">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center mb-4">
-                  <value.icon className="w-7 h-7 text-white" />
+              <div key={index} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center mb-4 hover:scale-110 hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-xl">
+                  <value.icon className="w-7 h-7 text-white hover:scale-110 transition-transform duration-300" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">{value.title}</h3>
+                <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">{value.description}</p>
               </div>
             ))}
           </div>
@@ -169,18 +169,18 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{meaningBehindJJValor.title}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20">
-              <h3 className="text-2xl font-bold text-white mb-4">J.J</h3>
-              <p className="text-blue-100 leading-relaxed">{meaningBehindJJValor.jj}</p>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-left-4 duration-700">
+              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">J.J</h3>
+              <p className="text-blue-100 leading-relaxed group-hover:text-blue-50 transition-colors duration-300">{meaningBehindJJValor.jj}</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20">
-              <h3 className="text-2xl font-bold text-white mb-4">Valor</h3>
-              <p className="text-blue-100 leading-relaxed">{meaningBehindJJValor.valor}</p>
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-right-4 duration-700 delay-200">
+              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">Valor</h3>
+              <p className="text-blue-100 leading-relaxed group-hover:text-blue-50 transition-colors duration-300">{meaningBehindJJValor.valor}</p>
             </div>
           </div>
-          <div className="mt-8 bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20">
-            <h3 className="text-2xl font-bold text-white mb-4">Our Logo</h3>
-            <p className="text-blue-100 leading-relaxed">{meaningBehindJJValor.logo}</p>
+          <div className="mt-8 bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+            <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-200 transition-colors duration-300">Our Logo</h3>
+            <p className="text-blue-100 leading-relaxed group-hover:text-blue-50 transition-colors duration-300">{meaningBehindJJValor.logo}</p>
           </div>
         </div>
       </section>

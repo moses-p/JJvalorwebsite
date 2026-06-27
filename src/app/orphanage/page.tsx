@@ -55,25 +55,27 @@ export default function OrphanagePage() {
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yIDItNCAyLTRzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJzLTItMi00LTJjMCAwLTItMi00LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')]"></div>
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="w-20 h-20 mx-auto mb-6 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+          <div className="w-20 h-20 mx-auto mb-6 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000 hover:scale-110 hover:rotate-6 transition-all duration-500">
             <Heart className="w-10 h-10 text-white" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Children's Orphanage Project</h1>
-          <p className="text-xl md:text-2xl text-orange-100 max-w-3xl mx-auto mb-8">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">Children's Orphanage Project</h1>
+          <p className="text-xl md:text-2xl text-orange-100 max-w-3xl mx-auto mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-400">
             Building a future home on one acre of land — providing shelter, education, healthcare, nutrition, and spiritual growth
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-600">
             <a
               href="#donate"
-              className="px-8 py-4 bg-white text-orange-600 rounded-xl hover:bg-orange-50 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-white text-orange-600 rounded-xl hover:bg-orange-50 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transform active:scale-95 group relative overflow-hidden"
             >
-              Donate Now
+              <span className="relative z-10">Donate Now</span>
+              <div className="absolute inset-0 bg-orange-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </a>
             <a
               href="#volunteer"
-              className="px-8 py-4 bg-orange-800 text-white rounded-xl hover:bg-orange-900 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-orange-800 text-white rounded-xl hover:bg-orange-900 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transform active:scale-95 group relative overflow-hidden"
             >
-              Become a Volunteer
+              <span className="relative z-10">Become a Volunteer</span>
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </a>
           </div>
         </div>
@@ -96,11 +98,11 @@ export default function OrphanagePage() {
               { icon: Apple, label: "Nutrition" },
               { icon: Church, label: "Spiritual Growth" },
             ].map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-                  <item.icon className="w-8 h-8 text-white" />
+              <div key={index} className="text-center group hover:scale-105 transition-transform duration-300 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-xl">
+                  <item.icon className="w-8 h-8 text-white hover:scale-110 transition-transform duration-300" />
                 </div>
-                <div className="font-semibold text-gray-900">{item.label}</div>
+                <div className="font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">{item.label}</div>
               </div>
             ))}
           </div>
@@ -118,12 +120,12 @@ export default function OrphanagePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentNeeds.map((need, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="w-12 h-12 mb-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                  <need.icon className="w-6 h-6 text-white" />
+              <div key={index} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="w-12 h-12 mb-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-xl">
+                  <need.icon className="w-6 h-6 text-white hover:scale-110 transition-transform duration-300" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{need.title}</h3>
-                <p className="text-gray-600">{need.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{need.title}</h3>
+                <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">{need.description}</p>
               </div>
             ))}
           </div>
@@ -141,13 +143,13 @@ export default function OrphanagePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {sponsorshipOptions.map((option, index) => (
-              <div key={index} className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 border-2 border-orange-200 hover:border-orange-400 transition-colors">
-                <div className="w-12 h-12 mb-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
-                  <option.icon className="w-6 h-6 text-white" />
+              <div key={index} className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6 border-2 border-orange-200 hover:border-orange-400 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="w-12 h-12 mb-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-xl">
+                  <option.icon className="w-6 h-6 text-white hover:scale-110 transition-transform duration-300" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{option.title}</h3>
-                <p className="text-gray-600 mb-4">{option.description}</p>
-                <div className="text-lg font-semibold text-orange-600">{option.amount}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">{option.title}</h3>
+                <p className="text-gray-600 mb-4 group-hover:text-gray-700 transition-colors duration-300">{option.description}</p>
+                <div className="text-lg font-semibold text-orange-600 group-hover:scale-110 transition-transform duration-300">{option.amount}</div>
               </div>
             ))}
           </div>
@@ -165,12 +167,12 @@ export default function OrphanagePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {donationMethods.map((method, index) => (
-              <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                <div className="w-12 h-12 mb-4 bg-white/20 rounded-lg flex items-center justify-center">
-                  <method.icon className="w-6 h-6 text-white" />
+              <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:bg-white/15 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="w-12 h-12 mb-4 bg-white/20 rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                  <method.icon className="w-6 h-6 text-white hover:scale-110 transition-transform duration-300" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{method.title}</h3>
-                <p className="text-blue-100">{method.number || method.details}</p>
+                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-300">{method.title}</h3>
+                <p className="text-blue-100 group-hover:text-blue-50 transition-colors duration-300">{method.number || method.details}</p>
               </div>
             ))}
           </div>
@@ -188,22 +190,23 @@ export default function OrphanagePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {volunteerOpportunities.map((opportunity, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 hover:shadow-xl transition-shadow">
-                <div className="w-12 h-12 mb-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                  <opportunity.icon className="w-6 h-6 text-white" />
+              <div key={index} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="w-12 h-12 mb-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-xl">
+                  <opportunity.icon className="w-6 h-6 text-white hover:scale-110 transition-transform duration-300" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{opportunity.title}</h3>
-                <p className="text-sm text-gray-600">{opportunity.description}</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">{opportunity.title}</h3>
+                <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">{opportunity.description}</p>
               </div>
             ))}
           </div>
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transform active:scale-95 group relative overflow-hidden"
             >
-              Apply to Volunteer
-              <Heart className="w-5 h-5" />
+              <span className="relative z-10">Apply to Volunteer</span>
+              <Heart className="w-5 h-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </a>
           </div>
         </div>
@@ -272,25 +275,27 @@ export default function OrphanagePage() {
 
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 group-hover:text-orange-200 transition-colors duration-300">
             Make a Difference Today
           </h2>
-          <p className="text-xl text-orange-100 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-orange-100 mb-8 max-w-3xl mx-auto group-hover:text-orange-50 transition-colors duration-300">
             Your support can transform lives and build a brighter future for children in need
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="#donate"
-              className="px-8 py-4 bg-white text-orange-600 rounded-xl hover:bg-orange-50 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-white text-orange-600 rounded-xl hover:bg-orange-50 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transform active:scale-95 group relative overflow-hidden"
             >
-              Donate Now
+              <span className="relative z-10">Donate Now</span>
+              <div className="absolute inset-0 bg-orange-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </a>
             <a
               href="/contact"
-              className="px-8 py-4 bg-orange-800 text-white rounded-xl hover:bg-orange-900 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-orange-800 text-white rounded-xl hover:bg-orange-900 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transform active:scale-95 group relative overflow-hidden"
             >
-              Contact Us
+              <span className="relative z-10">Contact Us</span>
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </a>
           </div>
         </div>

@@ -21,8 +21,8 @@ export default function AboutHistoryPage() {
     <div className="min-h-screen">
       <section className="relative py-20 md:py-32 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Company History</h1>
-          <p className="text-xl text-blue-200">Our journey from inception to becoming a leading enterprise</p>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">Company History</h1>
+          <p className="text-xl text-blue-200 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">Our journey from inception to becoming a leading enterprise</p>
         </div>
       </section>
 
@@ -30,9 +30,9 @@ export default function AboutHistoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             {achievements.map((achievement, index) => (
-              <div key={index} className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{achievement.stat}</div>
-                <div className="text-sm text-gray-600">{achievement.label}</div>
+              <div key={index} className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 100}ms` }}>
+                <div className="text-3xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform duration-300">{achievement.stat}</div>
+                <div className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">{achievement.label}</div>
               </div>
             ))}
           </div>
@@ -44,13 +44,13 @@ export default function AboutHistoryPage() {
               {timeline.map((item, index) => (
                 <div key={index} className={`flex flex-col md:flex-row items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   <div className="flex-1 text-center md:text-right md:pr-8">
-                    <div className="bg-white rounded-xl p-6 shadow-lg">
-                      <div className="text-2xl font-bold text-blue-600 mb-2">{item.year}</div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                      <p className="text-gray-600">{item.description}</p>
+                    <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: `${index * 150}ms` }}>
+                      <div className="text-2xl font-bold text-blue-600 mb-2 group-hover:text-blue-700 transition-colors duration-300">{item.year}</div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">{item.title}</h3>
+                      <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">{item.description}</p>
                     </div>
                   </div>
-                  <div className="w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg z-10 hidden md:block"></div>
+                  <div className="w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg z-10 hidden md:block group-hover:scale-110 transition-transform duration-300"></div>
                   <div className="flex-1 md:pl-8"></div>
                 </div>
               ))}
