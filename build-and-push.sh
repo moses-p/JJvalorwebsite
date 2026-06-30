@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-DOCKER_USERNAME="mosesp"
+DOCKER_USERNAME="arisegeniusug"
 BACKEND_IMAGE="${DOCKER_USERNAME}/jj-valor-backend"
 FRONTEND_IMAGE="${DOCKER_USERNAME}/jj-valor-frontend"
 TAG="latest"

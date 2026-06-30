@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    image: mosesp/jj-valor-backend:latest
+    image: arisegeniusug/jj-valor-backend:latest
     container_name: jj-valor-backend
     ports:
       - "8000:8000"
@@ -22,7 +22,7 @@ services:
       - jj-valor-network
 
   frontend:
-    image: mosesp/jj-valor-frontend:latest
+    image: arisegeniusug/jj-valor-frontend:latest
     container_name: jj-valor-frontend
     ports:
       - "3000:3000"

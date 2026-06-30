@@ -6,6 +6,7 @@ from auth import get_current_admin
 from database import get_db
 from models import ContactMessage as ContactMessageModel, User as UserModel
 from schemas import ContactMessageBase, ContactMessage as ContactMessageSchema
+from email import send_contact_notification
 
 router = APIRouter(prefix="/api/contact", tags=["contact"])
 
@@ -42,6 +43,15 @@ async def create_message(message: ContactMessageBase, db: Session = Depends(get_
     db.add(db_message)
     db.commit()
     db.refresh(db_message)
+    
+    # Send email notification
+    await send_contact_notification(
+        name=message.name,
+        email=message.email,
+        subject=message.subject or "No Subject",
+        message=message.message,
+    )
+    
     return db_message
 
 @router.put("/{message_id}/status")
